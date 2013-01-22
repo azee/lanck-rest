@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application xmlns="http://wadl.dev.java.net/2009/02">
+    <doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 1.14 09/09/2012 05:39 PM"/>
+    <grammars>
+        <include href="./xsd0.xsd">
+            <doc title="Generated" xml:lang="en"/>
+        </include>
+    </grammars>
+    <resources base="http://{rest.api.path}">
+        <resource path="/service2">
+            <resource path="/some/path/{paramName}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="paramName" style="template" type="xs:string"/>
+                <method id="getService2" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Cookie" style="header" type="xs:string" path="Session_id"/>
+                    </request>
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:someBean" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:someBean" mediaType="application/xml"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+
+
+
+
+        <resource path="/users">
+            <resource path="/{uid}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
+                <method id="getBalance" name="GET">
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:user" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:user" mediaType="application/text"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>

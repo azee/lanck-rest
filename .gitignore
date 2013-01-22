@@ -1,0 +1,17 @@
+*.class
+*.md
+*.iml
+*.pub
+*/target/*
+*.idea
+*DS_Store
+*.ipr
+*.iws
+build
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
