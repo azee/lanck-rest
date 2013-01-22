@@ -1,6 +1,0 @@
-#surefire
-#Tue Jan 22 17:36:59 MSK 2013
-custom.endpoint=dev0.etservice.net/ais/api/1.0
-user.dir=/home/azee/IdeaProjects/lanc/rest
-localRepository=/home/azee/.m2/repository
-basedir=/home/azee/IdeaProjects/lanc/rest
