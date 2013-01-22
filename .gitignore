@@ -8,6 +8,7 @@
 *.ipr
 *.iws
 build
+target
 
 # Package Files #
 *.jar

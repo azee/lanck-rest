@@ -15,8 +15,8 @@
                         <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Cookie" style="header" type="xs:string" path="Session_id"/>
                     </request>
                     <response>
-                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:someBean" mediaType="application/json"/>
-                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:someBean" mediaType="application/xml"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:someBean" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:someBean" mediaType="application/xml"/>
                     </response>
                 </method>
             </resource>
@@ -30,8 +30,8 @@
                 <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
                 <method id="getBalance" name="GET">
                     <response>
-                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:user" mediaType="application/json"/>
-                        <representation xmlns:ns2="urn:rest.lanctele.com" element="ns2:user" mediaType="application/text"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/text"/>
                     </response>
                 </method>
             </resource>

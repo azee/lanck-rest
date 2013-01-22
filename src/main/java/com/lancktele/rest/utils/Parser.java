@@ -26,7 +26,7 @@ public class Parser {
         JSONObject obj = new JSONObject(response);
         Configuration config = new Configuration();
         Map<String, String> xmlToJsonNamespaces = new HashMap<String,String>(1);
-        xmlToJsonNamespaces.put("urn:rest.lanctele.com", "");
+        xmlToJsonNamespaces.put("urn:rest.lancktele.com", "");
         config.setXmlToJsonNamespaces(xmlToJsonNamespaces);
         MappedNamespaceConvention con = new MappedNamespaceConvention(config);
         XMLStreamReader xmlStreamReader = new MappedXMLStreamReader(obj, con);
