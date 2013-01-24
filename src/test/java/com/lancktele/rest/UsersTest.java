@@ -46,13 +46,13 @@ public class UsersTest {
         assertNotNull("User is null", user);
 
         //Validating user's fields
-        assertEquals(user.getBalance(), "1000.000000");
-        assertEquals(user.getExternalId(), 63438328, 0);
-        assertEquals(user.getExternalService(), "fotostrana");
-        assertEquals(user.getGender(), "m");
-        assertEquals(user.getNameFull(), "Anatoly Shuvalov");
-        assertEquals(user.getPhoneNumber(), "79118360863");
-        assertEquals(user.getPhoto(), "http://www.blogcdn.com/www.engadget.com/media/2008/04/johnny-videophone.jpg");
+        assertEquals("1000.000000", user.getBalance());
+        assertEquals(63438328, user.getExternalId(), 0);
+        assertEquals("fotostrana", user.getExternalService());
+        assertEquals( "m", user.getGender());
+        assertEquals("Anatoly Shuvalov", user.getNameFull());
+        assertEquals("79118360863", user.getPhoneNumber());
+        assertEquals("http://www.blogcdn.com/www.engadget.com/media/2008/04/johnny-videophone.jpg", user.getPhoto());
         assertTrue(user.isAcceptCalls());
     }
 
@@ -125,9 +125,9 @@ public class UsersTest {
         }
 
         //Validating extenal fields
-        assertEquals(extendedContacts.getExternalId(), 63438328, 0);
-        assertEquals(extendedContacts.getExternalService(), "fotostrana");
-        assertEquals(extendedContacts.getGender(), "m");
+        assertEquals(63438328, extendedContacts.getExternalId(), 0);
+        assertEquals("fotostrana", extendedContacts.getExternalService());
+        assertEquals("m", extendedContacts.getGender());
         assertTrue(extendedContacts.isAcceptCalls());
     }
 }

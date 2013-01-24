@@ -2,7 +2,10 @@
 <application xmlns="http://wadl.dev.java.net/2009/02">
     <doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 1.14 09/09/2012 05:39 PM"/>
     <grammars>
-        <include href="./xsd0.xsd">
+        <include href="./users.xsd">
+            <doc title="Generated" xml:lang="en"/>
+        </include>
+        <include href="./calls.xsd">
             <doc title="Generated" xml:lang="en"/>
         </include>
     </grammars>
@@ -23,7 +26,7 @@
         </resource>
 
 
-
+       <!-- Users -->
         <resource path="/users">
             <resource path="/{uid}">
                 <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
@@ -64,7 +67,26 @@
                     </response>
                 </method>
             </resource>
+        </resource>
+
+
+        <!-- Calls -->
+        <resource path="/call">
+            <resource path="/{callId}/from/{srcUid}/to/{dstUid}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="callId" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="srcUid" style="template" type="xs:string"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="dstUid" style="template" type="xs:string"/>
+                <method id="getUser" name="GET">
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:call" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:call" mediaType="application/text"/>
+                    </response>
+                </method>
+            </resource>
+
 
         </resource>
+
+
     </resources>
 </application>

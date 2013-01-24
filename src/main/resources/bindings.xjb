@@ -6,12 +6,13 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
   version="2.1">
 
-    <jaxb:bindings schemaLocation="./xsd0.xsd" node="/xs:schema">
+    <jaxb:bindings>
         <jaxb:globalBindings>
             <jaxb:serializable/>
             <xjc:simple/>
         </jaxb:globalBindings>
     </jaxb:bindings>
+
 
 
 </jaxb:bindings>
