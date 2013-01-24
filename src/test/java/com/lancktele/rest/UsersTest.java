@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -93,11 +94,40 @@ public class UsersTest {
         assertNotNull("Contacts list is null", contacts);
         assertTrue("Contacts list is empty", contacts.getContacts().size() > 0);
 
+        //Validate contacts list
         for (String contact : contacts.getContacts()){
             assertNotNull("One of the contacts is empty", contact);
             assertFalse("One of the contacts is empty", "".equals(contact));
         }
+    }
 
+    /**
+     * Test for a get Contacts Extended handler
+     * @throws Exception
+     */
+    @Test
+    public void getExtendedContactsTest() throws Exception {
+        HttpRestApiPath.Users.UidContactsUidExtended call = new HttpRestApiPath.Users.UidContactsUidExtended(propertyLoader.getEndpoint(), UUID);
 
+        //Getting response as string
+        String response = call.getAsApplicationText(String.class);
+        assertNotNull(response, "Can't get a response from Get User Extended Contacts handler");
+
+        //Getting contacts
+        ExtendedContacts extendedContacts = parser.unmarshal(response, "", ExtendedContacts.class);
+        assertNotNull("Extended Contacts list is null", extendedContacts);
+        assertTrue("Extended Contacts list is empty", extendedContacts.getContactsUids().size() > 0);
+
+        //Validate contacts list
+        for (String contact : extendedContacts.getContactsUids()){
+            assertNotNull("One of the contacts UID is empty", contact);
+            assertFalse("One of the contacts UID is empty", "".equals(contact));
+        }
+
+        //Validating extenal fields
+        assertEquals(extendedContacts.getExternalId(), 63438328, 0);
+        assertEquals(extendedContacts.getExternalService(), "fotostrana");
+        assertEquals(extendedContacts.getGender(), "m");
+        assertTrue(extendedContacts.isAcceptCalls());
     }
 }

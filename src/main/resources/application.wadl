@@ -55,6 +55,16 @@
                 </method>
             </resource>
 
+            <resource path="/{uid}/contacts/uid/extended">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
+                <method id="getContacts" name="GET">
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:extendedContacts" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:extendedContacts" mediaType="application/text"/>
+                    </response>
+                </method>
+            </resource>
+
         </resource>
     </resources>
 </application>

@@ -33,7 +33,18 @@
     <xs:element name="contacts" type="tns:Contacts" />
     <xs:complexType name="Contacts">
         <xs:sequence>
-            <xs:element name="contact" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="contacts" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="extendedContacts" type="tns:ExtendedContacts" />
+    <xs:complexType name="ExtendedContacts">
+        <xs:sequence>
+            <xs:element name="externalService" type="xs:string"/>
+            <xs:element name="externalId" type="xs:float"/>
+            <xs:element name="acceptCalls" type="xs:boolean"/>
+            <xs:element name="gender" type="xs:string"/>
+            <xs:element name="contactsUid" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
