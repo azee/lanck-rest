@@ -25,9 +25,11 @@ public class UsersTest {
     @Autowired
     private PropertyLoader propertyLoader;
 
+    private final static String UUID = "ce853612f64d9668ccf8e04037e41514";
+
     @Test
     public void getUserTest() throws Exception {
-        HttpRestApiPath.Users.Uid call = new HttpRestApiPath.Users.Uid(propertyLoader.getEndpoint(), "ce853612f64d9668ccf8e04037e41514");
+        HttpRestApiPath.Users.Uid call = new HttpRestApiPath.Users.Uid(propertyLoader.getEndpoint(), UUID);
 
         //Getting response as string
         String response = call.getAsApplicationText(String.class);
@@ -46,5 +48,21 @@ public class UsersTest {
         assertEquals(user.getPhoneNumber(), "79118360863");
         assertEquals(user.getPhoto(), "http://www.blogcdn.com/www.engadget.com/media/2008/04/johnny-videophone.jpg");
         assertTrue(user.isAcceptCalls());
+    }
+
+    @Test
+    public void getBalanceTest() throws Exception {
+        HttpRestApiPath.Users.UidBalance call = new HttpRestApiPath.Users.UidBalance(propertyLoader.getEndpoint(), UUID);
+
+        //Getting response as string
+        String response = call.getAsApplicationText(String.class);
+        assertNotNull(response, "Can't get a response from Get User Balance handler");
+
+        //Getting balace
+        Balance balance = parser.unmarshal(response, "balance", Balance.class);
+        assertNotNull("Balance is null", balance);
+
+        //Validating user's fields
+        assertEquals("1000.000000", balance.getBalance());
     }
 }

@@ -23,4 +23,11 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="balance" type="tns:Balance" />
+    <xs:complexType name="Balance">
+        <xs:sequence>
+            <xs:element name="balance" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>

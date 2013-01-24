@@ -24,9 +24,18 @@
 
 
 
-
         <resource path="/users">
             <resource path="/{uid}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
+                <method id="getUser" name="GET">
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/text"/>
+                    </response>
+                </method>
+            </resource>
+
+            <resource path="/{uid}/balance">
                 <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
                 <method id="getBalance" name="GET">
                     <response>
@@ -35,6 +44,7 @@
                     </response>
                 </method>
             </resource>
+
         </resource>
     </resources>
 </application>
