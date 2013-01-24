@@ -36,7 +36,7 @@ public class UsersTest {
         assertNotNull(response, "Can't get a response from Get User handler");
 
         //Getting user
-        User user = parser.unmarshal(response, "user", User.class);
+        User user = parser.unmarshal(response, "", User.class);
         assertNotNull("User is null", user);
 
         //Validating user's fields
@@ -59,10 +59,31 @@ public class UsersTest {
         assertNotNull(response, "Can't get a response from Get User Balance handler");
 
         //Getting balace
-        Balance balance = parser.unmarshal(response, "balance", Balance.class);
+        Balance balance = parser.unmarshal(response, "", Balance.class);
         assertNotNull("Balance is null", balance);
 
         //Validating user's fields
         assertEquals("1000.000000", balance.getBalance());
+    }
+
+    @Test
+    public void getContactsTest() throws Exception {
+        HttpRestApiPath.Users.UidContactsApplicationUid call = new HttpRestApiPath.Users.UidContactsApplicationUid(propertyLoader.getEndpoint(), UUID);
+
+        //Getting response as string
+        String response = call.getAsApplicationText(String.class);
+        assertNotNull(response, "Can't get a response from Get User Contacts handler");
+
+        //Getting contacts
+        Contacts contacts = parser.unmarshal(response, "contacts", Contacts.class);
+        assertNotNull("Contacts list is null", contacts);
+        assertTrue("Contacts list is empty", contacts.getContacts().size() > 0);
+
+        for (String contact : contacts.getContacts()){
+            assertNotNull("One of the contacts is empty", contact);
+            assertFalse("One of the contacts is empty", "".equals(contact));
+        }
+
+
     }
 }

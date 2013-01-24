@@ -39,8 +39,18 @@
                 <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
                 <method id="getBalance" name="GET">
                     <response>
-                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/json"/>
-                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:user" mediaType="application/text"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:balance" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:balance" mediaType="application/text"/>
+                    </response>
+                </method>
+            </resource>
+
+            <resource path="/{uid}/contacts/application/uid">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uid" style="template" type="xs:string"/>
+                <method id="getContacts" name="GET">
+                    <response>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:contacts" mediaType="application/json"/>
+                        <representation xmlns:ns2="urn:rest.lancktele.com" element="ns2:contacts" mediaType="application/text"/>
                     </response>
                 </method>
             </resource>
