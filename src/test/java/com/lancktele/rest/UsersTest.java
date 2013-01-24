@@ -27,6 +27,11 @@ public class UsersTest {
 
     private final static String UUID = "ce853612f64d9668ccf8e04037e41514";
 
+     /**
+     *
+     * Test for a getting user details handler
+     * @throws Exception
+     */
     @Test
     public void getUserTest() throws Exception {
         HttpRestApiPath.Users.Uid call = new HttpRestApiPath.Users.Uid(propertyLoader.getEndpoint(), UUID);
@@ -50,6 +55,11 @@ public class UsersTest {
         assertTrue(user.isAcceptCalls());
     }
 
+    /**
+     *
+     * Test for a Get Balance handler
+     * @throws Exception
+     */
     @Test
     public void getBalanceTest() throws Exception {
         HttpRestApiPath.Users.UidBalance call = new HttpRestApiPath.Users.UidBalance(propertyLoader.getEndpoint(), UUID);
@@ -66,6 +76,10 @@ public class UsersTest {
         assertEquals("1000.000000", balance.getBalance());
     }
 
+    /**
+     * Test for a get Contacts handler
+     * @throws Exception
+     */
     @Test
     public void getContactsTest() throws Exception {
         HttpRestApiPath.Users.UidContactsApplicationUid call = new HttpRestApiPath.Users.UidContactsApplicationUid(propertyLoader.getEndpoint(), UUID);
