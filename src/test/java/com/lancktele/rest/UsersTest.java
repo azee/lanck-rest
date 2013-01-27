@@ -1,11 +1,15 @@
 package com.lancktele.rest;
 
+import com.lancktele.rest.utils.LoadParams;
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
 import com.lanctele.rest.HttpRestApiPath;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.ws.rs.core.MediaType;
 import javax.xml.ws.Response;
 
 import static org.junit.Assert.*;
@@ -49,6 +54,10 @@ public class UsersTest {
         //Getting response as string
         String response = call.getAsApplicationText(String.class);
         assertNotNull(response, "Can't get a response from Get User handler");
+
+        //WebResource webResource = Client.create().resource("http://" + propertyLoader.getEndpoint() + "/users/" + UUID);
+        //String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
+
 
         //Getting user
         User user = parser.unmarshal(response, "", User.class);
