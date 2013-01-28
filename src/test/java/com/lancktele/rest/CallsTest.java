@@ -2,7 +2,7 @@ package com.lancktele.rest;
 
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
-import com.lanctele.rest.HttpRestApiPath;
+import com.lancktele.rest.HttpRestApiPath;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.junit.Test;

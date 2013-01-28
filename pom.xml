@@ -142,7 +142,7 @@
                 </executions>
                 <configuration>
                     <sourceDirectory>src/main/resources</sourceDirectory>
-                    <packageName>com.lanctele.rest</packageName>
+                    <packageName>com.lancktele.rest</packageName>
                     <customizations>
                         <customization>src/main/resources/bindings.xjb</customization>
                     </customizations>
@@ -163,6 +163,58 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--<plugin>
+                <groupId>org.jvnet.ws.wadl</groupId>
+                <artifactId>wadl-client-plugin</artifactId>
+                <version>1.1.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun.jersey</groupId>
+                        <artifactId>jersey-bundle</artifactId>
+                        <version>1.14</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>com.sun.jersey</groupId>
+                        <artifactId>jersey-server</artifactId>
+                        <version>1.14</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.jersey</groupId>
+                        <artifactId>jersey-core</artifactId>
+                        <version>1.14</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.jersey</groupId>
+                        <artifactId>jersey-json</artifactId>
+                        <version>1.14</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.jersey</groupId>
+                        <artifactId>jersey-servlet</artifactId>
+                        <version>1.14</version>
+                    </dependency>
+                </dependencies>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>src/main/resources</sourceDirectory>
+                    <packageName>com.lancktele.rest</packageName>
+                    <customizations>
+                        <customization>${project.basedir}/src/main/resources/bindings.xjb</customization>
+                    </customizations>
+                    <autoPackaging>true</autoPackaging>
+                    <failOnError>true</failOnError>
+                </configuration>
+            </plugin>-->
         </plugins>
     </build>
 
