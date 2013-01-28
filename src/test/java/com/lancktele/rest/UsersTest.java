@@ -8,6 +8,7 @@ import com.sun.jersey.api.client.WebResource;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -105,6 +106,55 @@ public class UsersTest {
 
         //Validating user's fields
         assertEquals("1000.000000", balance.getBalance());
+    }
+
+    /**
+     *
+     * Test for a Post Balance handler
+     * @throws Exception
+     */
+    @Test
+    public void postBalanceTest() throws Exception {
+        //Create a URI string
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/deposit", UUID);
+
+        //Getting response as string
+        WebResource webResource = Client.create().resource(url);
+        Balance newBalance = new Balance();
+        newBalance.setBalance("2000.000000");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, newBalance);
+        assertTrue("Couldn't change a user's balance", response.getStatus() == 200 || response.getStatus() == 204);
+
+
+        String getUrl = String.format(propertyLoader.getEndpoint() + "/users/%s/balance", UUID);
+        //Getting response as string
+        WebResource getWebResource = Client.create().resource(getUrl);
+        String getResponse = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
+        assertNotNull(getResponse, "Can't get a response from Get User Balance handler");
+
+
+        //Getting balace
+        Balance balance = parser.unmarshal(getResponse, "", Balance.class);
+        assertNotNull("Balance is null", balance);
+
+        //Validating user's fields
+        assertEquals("2000.000000", balance.getBalance());
+    }
+
+    /**
+     *
+     * Restore changed balance
+     * @throws Exception
+     */
+    @After
+    public void restoreBalance() throws Exception{
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/deposit", UUID);
+
+        //Getting response as string
+        WebResource webResource = Client.create().resource(url);
+        Balance newBalance = new Balance();
+        newBalance.setBalance("1000.000000");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, newBalance);
     }
 
     /**
