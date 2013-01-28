@@ -2,16 +2,15 @@ package com.lancktele.rest;
 
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
-import com.lancktele.rest.HttpRestApiPath;
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.Required;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.xml.ws.Response;
+import javax.ws.rs.core.MediaType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,8 +39,12 @@ public class CallsTest {
      */
     @Test
     public void getCallTo() throws Exception {
-        HttpRestApiPath.Call.CallIdFromSrcUidToDstUid proxy = new HttpRestApiPath.Call.CallIdFromSrcUidToDstUid(propertyLoader.getEndpoint(), CALL_ID, SRC_ID, DIST_ID);
-        String response = proxy.getAsApplicationText(String.class);
+        //Create a URI string
+        String url = String.format(propertyLoader.getEndpoint() + "/call/%s/from/%s/to/%s", CALL_ID, SRC_ID, DIST_ID);
+
+        //Get data as string to parse list without root element
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
         assertNotNull(response, "Can't get a response from Get Call handler");
 
         Call call = parser.unmarshal(response, "", Call.class);

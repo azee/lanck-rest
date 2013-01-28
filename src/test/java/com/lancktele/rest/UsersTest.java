@@ -2,7 +2,6 @@ package com.lancktele.rest;
 
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
-import com.lancktele.rest.HttpRestApiPath;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -47,15 +46,14 @@ public class UsersTest {
      */
     @Test
     public void getUserTest() throws Exception {
-        HttpRestApiPath.Users.Uid call = new HttpRestApiPath.Users.Uid(propertyLoader.getEndpoint(), UUID);
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s", UUID);
 
         //Getting response as string
-        String response = call.getAsApplicationText(String.class);
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
+
+        //Getting response as string
         assertNotNull(response, "Can't get a response from Get User handler");
-
-        //WebResource webResource = Client.create().resource("http://" + propertyLoader.getEndpoint() + "/users/" + UUID);
-        //String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
-
 
         //Getting user
         User user = parser.unmarshal(response, "", User.class);
@@ -93,10 +91,12 @@ public class UsersTest {
      */
     @Test
     public void getBalanceTest() throws Exception {
-        HttpRestApiPath.Users.UidBalance call = new HttpRestApiPath.Users.UidBalance(propertyLoader.getEndpoint(), UUID);
+        //Create a URI string
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/balance", UUID);
 
         //Getting response as string
-        String response = call.getAsApplicationText(String.class);
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
         assertNotNull(response, "Can't get a response from Get User Balance handler");
 
         //Getting balace
@@ -113,11 +113,12 @@ public class UsersTest {
      */
     @Test
     public void getContactsTest() throws Exception {
-        HttpRestApiPath.Users.UidContactsApplicationUid call = new HttpRestApiPath.Users.UidContactsApplicationUid(propertyLoader.getEndpoint(), UUID);
+        //Create a URI string
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/contacts/application/uid", UUID);
 
-        //Getting response as string
-        String response = call.getAsApplicationText(String.class);
-        assertNotNull(response, "Can't get a response from Get User Contacts handler");
+        //Get data as string to parse list without root element
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
 
         //Getting contacts
         Contacts contacts = parser.unmarshal(response, "contacts", Contacts.class);
@@ -139,10 +140,12 @@ public class UsersTest {
     @Required(max = 2500, average = 1900)
     @Test
     public void getExtendedContactsTest() throws Exception {
-        HttpRestApiPath.Users.UidContactsUidExtended call = new HttpRestApiPath.Users.UidContactsUidExtended(propertyLoader.getEndpoint(), UUID);
+        //Create a URI string
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/contacts/uid/extended", UUID);
 
-        //Getting response as string
-        String response = call.getAsApplicationText(String.class);
+        //Get data as string to parse list without root element
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
         assertNotNull(response, "Can't get a response from Get User Extended Contacts handler");
 
         //Getting contacts

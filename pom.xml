@@ -117,8 +117,6 @@
             <artifactId>jackson-xc</artifactId>
             <version>1.9.2</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -129,25 +127,28 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.jvnet.ws.wadl</groupId>
-                <artifactId>wadl-maven-plugin</artifactId>
-                <version>1.1-SNAPSHOT</version>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <dependencies>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                     </execution>
                 </executions>
                 <configuration>
-                    <sourceDirectory>src/main/resources</sourceDirectory>
-                    <packageName>com.lancktele.rest</packageName>
-                    <customizations>
-                        <customization>src/main/resources/bindings.xjb</customization>
-                    </customizations>
+                    <verbose>true</verbose>
+                    <readOnly>true</readOnly>
+                    <extension>true</extension>
+                    <removeOldOutput>true</removeOldOutput>
+                    <schemaDirectory>src/main/resources</schemaDirectory>
+                    <bindingDirectory>src/main/resources</bindingDirectory>
                 </configuration>
             </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -163,58 +164,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--<plugin>
-                <groupId>org.jvnet.ws.wadl</groupId>
-                <artifactId>wadl-client-plugin</artifactId>
-                <version>1.1.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-bundle</artifactId>
-                        <version>1.14</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-server</artifactId>
-                        <version>1.14</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-core</artifactId>
-                        <version>1.14</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-json</artifactId>
-                        <version>1.14</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>jersey-servlet</artifactId>
-                        <version>1.14</version>
-                    </dependency>
-                </dependencies>
-
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourceDirectory>src/main/resources</sourceDirectory>
-                    <packageName>com.lancktele.rest</packageName>
-                    <customizations>
-                        <customization>${project.basedir}/src/main/resources/bindings.xjb</customization>
-                    </customizations>
-                    <autoPackaging>true</autoPackaging>
-                    <failOnError>true</failOnError>
-                </configuration>
-            </plugin>-->
         </plugins>
     </build>
 
