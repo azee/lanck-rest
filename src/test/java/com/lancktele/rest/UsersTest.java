@@ -1,15 +1,14 @@
 package com.lancktele.rest;
 
-import com.lancktele.rest.utils.LoadParams;
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
 import com.lanctele.rest.HttpRestApiPath;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.Response;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -73,6 +71,20 @@ public class UsersTest {
         assertEquals("http://www.blogcdn.com/www.engadget.com/media/2008/04/johnny-videophone.jpg", user.getPhoto());
         assertTrue(user.isAcceptCalls());
     }
+
+
+    /**
+     *
+     * Test for a getting wrong user details - 404 answer expected
+     * @throws Exception
+     */
+    @Test
+    public void getWrongUserTest() throws Exception {
+        WebResource webResource = Client.create().resource("http://" + propertyLoader.getEndpoint() + "/users/WrOngUUid");
+        ClientResponse response = webResource.accept(MediaType.TEXT_PLAIN).get(ClientResponse.class);
+        assertEquals(404, response.getStatus());
+    }
+
 
     /**
      *
