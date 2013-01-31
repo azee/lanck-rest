@@ -19,7 +19,9 @@
             <xs:element name="acceptCalls" type="xs:boolean"/>
             <xs:element name="photo" type="xs:string"/>
             <xs:element name="phoneNumber" type="xs:string"/>
+            <xs:element name="phoneNumberDraft" type="xs:string"/>
             <xs:element name="gender" type="xs:string"/>
+
         </xs:sequence>
     </xs:complexType>
 
@@ -27,6 +29,13 @@
     <xs:complexType name="Balance">
         <xs:sequence>
             <xs:element name="balance" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="amount" type="tns:Amount" />
+    <xs:complexType name="Amount">
+        <xs:sequence>
+            <xs:element name="amount" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
