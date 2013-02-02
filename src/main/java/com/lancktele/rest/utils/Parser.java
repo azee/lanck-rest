@@ -1,7 +1,5 @@
 package com.lancktele.rest.utils;
 
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
@@ -27,14 +25,13 @@ public class Parser {
 
     public <T> String marshal(T object, String rootName) throws Exception{
         String result;
-        if (rootName != null && !"".equals(rootName)){
-            //response = "{\"" + rootName + "\": " + response + "}";
-        }
         ObjectMapper mapper = new ObjectMapper();
         AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
         mapper.getSerializationConfig().setAnnotationIntrospector(introspector);
-        //mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
         result = mapper.writeValueAsString(object);
+        if (rootName != null && !"".equals(rootName)){
+            result = "{\"" + rootName + "\": " + result + "}";
+        }
         return result;
     }
 }
