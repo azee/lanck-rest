@@ -1,21 +1,25 @@
 package com.lancktele.rest;
 
+import com.lancktele.rest.utils.NetService;
 import com.lancktele.rest.utils.Parser;
 import com.lancktele.rest.utils.PropertyLoader;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import javax.ws.rs.core.MediaType;
 
@@ -37,9 +41,34 @@ public class UsersTest {
     private Parser parser;
 
     @Autowired
+    NetService netService;
+
+    @Autowired
     private PropertyLoader propertyLoader;
 
     private final static String UUID = "ce853612f64d9668ccf8e04037e41514";
+
+    @Before
+    public void restoreBalance() throws Exception{
+        //Get a user
+        String url = String.format(propertyLoader.getEndpoint() + "/users/%s", UUID);
+
+        //Getting response as string
+        WebResource webResource = Client.create().resource(url);
+        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
+
+        //Getting response as string
+        assertNotNull(response, "Can't get a response from Get User handler");
+
+        //Getting user
+        User user = parser.unmarshal(response, "", User.class);
+
+        user.setBalance("1000.000000");
+
+        //Update a user
+        netService.doPutRequest(url, "user", user, "");
+    }
+
 
      /**
      *
@@ -62,7 +91,7 @@ public class UsersTest {
         assertNotNull("User is null", user);
 
         //Validating user's fields
-        assertEquals("1264.000000", user.getBalance());
+        assertEquals("1000.000000", user.getBalance());
         assertEquals(63438328, user.getExternalId(), 0);
         assertEquals("fotostrana", user.getExternalService());
         assertEquals( "m", user.getGender());
@@ -107,7 +136,7 @@ public class UsersTest {
         assertNotNull("Balance is null", balance);
 
         //Validating user's fields
-        assertEquals("1264.000000", balance.getBalance());
+        assertEquals("1000.000000", balance.getBalance());
     }
 
     /**
@@ -115,48 +144,26 @@ public class UsersTest {
      * Test for a Post Balance handler
      * @throws Exception
      */
-    @Ignore
     @Test
     public void postBalanceTest() throws Exception {
-        //Create a URI string
+        //Create a URI string for post
         String url = String.format(propertyLoader.getEndpoint() + "/users/%s/deposit", UUID);
 
-        //Getting response as string
-        WebResource webResource = Client.create().resource(url);
+        //Creapte an ammount object
         Amount amount = new Amount();
         amount.setAmount("22.000000");
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, amount);
-        assertTrue("Couldn't change a user's balance", response.getStatus() == 200 || response.getStatus() == 204);
+
+        //Get a response
+        HttpResponse response = netService.doPostRequest(url, "deposit", amount, "");
+        assertTrue("Couldn't change a user's balance", response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 204);
 
         String getUrl = String.format(propertyLoader.getEndpoint() + "/users/%s/balance", UUID);
-        //Getting response as string
         WebResource getWebResource = Client.create().resource(getUrl);
-        String getResponse = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
-        assertNotNull(getResponse, "Can't get a response from Get User Balance handler");
+        String getResponse = getWebResource.accept(MediaType.TEXT_PLAIN).get(String.class);
+        Balance newBalance = parser.unmarshal(getResponse, "", Balance.class);
 
-        //Getting balace
-        Balance balance = parser.unmarshal(getResponse, "", Balance.class);
-        assertNotNull("Balance is null", balance);
-
-        //Validating user's fields
-        assertEquals("2000.000000", balance.getBalance());
-    }
-
-    /**
-     *
-     * Restore changed balance
-     * @throws Exception
-     */
-    @Ignore
-    @After
-    public void restoreBalance() throws Exception{
-        String url = String.format(propertyLoader.getEndpoint() + "/users/%s/deposit", UUID);
-
-        //Getting response as string
-        WebResource webResource = Client.create().resource(url);
-        Balance newBalance = new Balance();
-        newBalance.setBalance("1000.000000");
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, newBalance);
+        assertNotNull("Balance is null", newBalance);
+        assertEquals("Ballance is not incremented on expected amount", "1022.000000", newBalance.getBalance());
     }
 
     /**

@@ -25,17 +25,16 @@ public class Parser {
         return (T)mapper.readValue(response, objectClass);
     }
 
-//    public <T> String marshal(T object, String rootName) throws Exception{
-//        String result;
-//        if (rootName != null && !"".equals(rootName)){
-//            //response = "{\"" + rootName + "\": " + response + "}";
-//        }
-//        ObjectMapper mapper = new ObjectMapper();
-//        AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
-//        mapper.getSerializationConfig().setAnnotationIntrospector(introspector);
-//        //mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
-//        result = mapper.writeValueAsString(object);
-//        //result = rootName + "=" + result;
-//        return result;
-//    }
+    public <T> String marshal(T object, String rootName) throws Exception{
+        String result;
+        if (rootName != null && !"".equals(rootName)){
+            //response = "{\"" + rootName + "\": " + response + "}";
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
+        mapper.getSerializationConfig().setAnnotationIntrospector(introspector);
+        //mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+        result = mapper.writeValueAsString(object);
+        return result;
+    }
 }
