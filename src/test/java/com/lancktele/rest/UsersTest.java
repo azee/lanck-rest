@@ -43,28 +43,6 @@ public class UsersTest {
 
     private final static String UUID = "ce853612f64d9668ccf8e04037e41514";
 
-    @Before
-    public void restoreBalance() throws Exception{
-        //Get a user
-        String url = String.format(propertyLoader.getEndpoint() + "/users/%s", UUID);
-
-        //Getting response as string
-        WebResource webResource = Client.create().resource(url);
-        String response = webResource.accept(MediaType.TEXT_PLAIN).get(String.class);
-
-        //Getting response as string
-        assertNotNull(response, "Can't get a response from Get User handler");
-
-        //Getting user
-        User user = parser.unmarshal(response, "", User.class);
-
-        user.setBalance("1000.000000");
-
-        //Update a user
-        netService.doPutRequest(url, "user", user, "");
-    }
-
-
      /**
      *
      * Test for a getting user details handler
@@ -86,9 +64,9 @@ public class UsersTest {
         assertNotNull("User is null", user);
 
         //Validating user's fields
-        assertEquals("1000.000000", user.getBalance());
-        assertEquals(63438328, user.getExternalId(), 0);
-        assertEquals("fotostrana", user.getExternalService());
+        assertEquals("1044.000000", user.getBalance());
+        assertEquals(0, user.getExternalId(), 0);
+        assertEquals(null, user.getExternalService());
         assertEquals( "m", user.getGender());
         assertEquals("Anatoly Shuvalov", user.getNameFull());
         assertEquals("79118360863", user.getPhoneNumber());
@@ -131,7 +109,7 @@ public class UsersTest {
         assertNotNull("Balance is null", balance);
 
         //Validating user's fields
-        assertEquals("1000.000000", balance.getBalance());
+        assertEquals("1044.000000", balance.getBalance());
     }
 
     /**
@@ -157,8 +135,13 @@ public class UsersTest {
         String getResponse = getWebResource.accept(MediaType.TEXT_PLAIN).get(String.class);
         Balance newBalance = parser.unmarshal(getResponse, "", Balance.class);
 
+        //Restore a balance
+        url = String.format(propertyLoader.getEndpoint() + "/users/%s/withdraw", UUID);
+        amount.setAmount("22.000000");
+        netService.doPostRequest(url, "withdraw", amount, "");
+
         assertNotNull("Balance is null", newBalance);
-        assertEquals("Ballance is not incremented on expected amount", "1022.000000", newBalance.getBalance());
+        assertEquals("Ballance is not incremented on expected amount", "1066.000000", newBalance.getBalance());
     }
 
     /**
@@ -214,8 +197,8 @@ public class UsersTest {
         }
 
         //Validating extenal fields
-        assertEquals(63438328, extendedContacts.getExternalId(), 0);
-        assertEquals("fotostrana", extendedContacts.getExternalService());
+        assertEquals(0, extendedContacts.getExternalId(), 0);
+        assertEquals(null, extendedContacts.getExternalService());
         assertEquals("m", extendedContacts.getGender());
         assertTrue(extendedContacts.isAcceptCalls());
     }

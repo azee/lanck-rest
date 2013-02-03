@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="urn:rest.lancktele.com" xmlns:tns="urn:rest.lancktele.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="someBean" type="tns:SomeBean" />
-    <xs:complexType name="SomeBean">
-        <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
     <xs:element name="user" type="tns:User" />
     <xs:complexType name="User">
         <xs:sequence>
@@ -21,7 +13,6 @@
             <xs:element name="phoneNumber" type="xs:string"/>
             <xs:element name="phoneNumberDraft" type="xs:string"/>
             <xs:element name="gender" type="xs:string"/>
-
         </xs:sequence>
     </xs:complexType>
 

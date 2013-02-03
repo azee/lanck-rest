@@ -44,6 +44,9 @@ public class NetService {
         //Marshall an object
         String marshalledObject = parser.marshal(entity, objectRootName);
         StringEntity params = new StringEntity(paramName + "=" + marshalledObject);
+
+        System.out.println(paramName + "=" + marshalledObject);
+
         request.addHeader("content-type", "application/x-www-form-urlencoded");
         request.setEntity(params);
         HttpResponse response = httpClient.execute(request);
